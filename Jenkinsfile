@@ -20,8 +20,8 @@ pipeline {
         }
         stage('Build and push Docker image') {
             steps {
-                withDockerRegistry([credentialsId: 'fbfdc3a8-f9c2-4a98-aeca-f2cb2c1efd7a', url: 'https://index.docker.io/v1/']) {
-                    withDockerServer([credentialsId: 'fbfdc3a8-f9c2-4a98-aeca-f2cb2c1efd7a', uri: 'https://index.docker.io/v1/']) {
+                withDockerRegistry([credentialsId: '858b2025-94a5-4bfb-82d9-d9c96be7ec4c', url: 'https://index.docker.io/v1/']) {
+                    withDockerServer([credentialsId: '858b2025-94a5-4bfb-82d9-d9c96be7ec4c', uri: 'https://index.docker.io/v1/']) {
                         bat """set JENKINS_NODE_COOKIE=dontKillMe && start /min docker build -t index.docker.io/v1/hello-world:latest . """
                         bat """set JENKINS_NODE_COOKIE=dontKillMe && start /min docker push index.docker.io/v1/hello-world:latest """
                     }
