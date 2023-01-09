@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps {
-                withKubeConfig([credentialsId: 'df507308-e270-45d6-9064-ca34d543e928', serverUrl: 'https://kubernetes.docker.internal:6443']) {
+                withKubeConfig([credentialsId: 'e5326158-a848-40b4-bbc3-e144ec4ab299', serverUrl: 'https://kubernetes.docker.internal:6443']) {
                     bat """set JENKINS_NODE_COOKIE=dontKillMe && start /min kubectl apply -f deployment.yaml -f service.yaml """
                 }
             }
