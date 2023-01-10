@@ -1,6 +1,6 @@
 const express = require('express')
 const promClient = require('prom-client')
-
+const os = require('os')
 const app = express()
 
 // Create a Gauge for CPU usage
