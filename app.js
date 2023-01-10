@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    res.send('Hello, World! Hola Amigos! How are ya? This is working now.')
+    res.send('Hello, World! Hola Amigos! How are ya? This is working now for real.')
 })
 
 app.get('/metrics', async (req, res) => {
