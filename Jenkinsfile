@@ -24,7 +24,6 @@ pipeline {
                     withDockerServer([credentialsId: '164b0615-8c61-4199-9880-8160d59aed0d', uri: 'tcp://localhost:2375']) {
                         sh 'docker build -t michagonzo77/kubiya-assessment:latest .'
                         sh 'docker push michagonzo77/kubiya-assessment:latest'
-                        sh 'docker run -p 3001:3001 michagonzo77/kubiya-assessment'
                     }
                 }
             }
