@@ -20,8 +20,8 @@ pipeline {
         }
         stage('Build and push Docker image') {
             steps {
-                withDockerRegistry([credentialsId: '858b2025-94a5-4bfb-82d9-d9c96be7ec4c', url: 'https://index.docker.io/v1/']) {
-                    withDockerServer([credentialsId: '858b2025-94a5-4bfb-82d9-d9c96be7ec4c', uri: 'https://index.docker.io/v1/']) {
+                withDockerRegistry([credentialsId: '164b0615-8c61-4199-9880-8160d59aed0d', url: 'https://index.docker.io/v1/']) {
+                    withDockerServer([credentialsId: '164b0615-8c61-4199-9880-8160d59aed0d', uri: 'https://index.docker.io/v1/']) {
                         bat """set JENKINS_NODE_COOKIE=dontKillMe && start /min docker build -t michagonzo77/kubiya-assessment:latest . """
                         bat """set JENKINS_NODE_COOKIE=dontKillMe && start /min docker push michagonzo77/kubiya-assessment:latest """
                     }
