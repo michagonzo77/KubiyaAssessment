@@ -26,7 +26,7 @@ Inside the root folder of HelloWorld, in the terminal, run the command npm insta
 # 3. Containerize the application using Docker.
 Create an empty file named Dockerfile in the root of the folder. Edit the Dockerfile to contain the following:<br></br>
 
-*FROM node:16.17.0-alpine
+*FROM node:16.17.0-alpine*
 
 *WORKDIR /app*
 
@@ -246,32 +246,33 @@ BONUS
 
 ## Configure the pipeline to automatically deploy the application to the Kubernetes cluster whenever a new version is built and tested successfully. 
   1. We already have Docker Pipeline and Kubernetes installed from earlier.
-  2. Update our Jenkinsfile. Add a stage after our Build and push stage:
-  3. Head over to Jenkins Dashboard, Manage Jenkins, Manage nodes and clouds, Add a new cloud - Kubernetes.
-  4. Name it kubernetes and click Kubernetes Cloud details.
-  5. Set Kubernetes URL to https://kubernetes.docker.internal:6443
-  6. Disable https certficate check.
-  7. Enable WebSocket.
-  8. Set Jenkins URL to http://localhost:8080
-  9. Click Save.
-  10. Now head to Manage Credentials and Add Credentials.
-  11. Select Secret file for the Kind and browse your PC for your .kube folder and upload the config file. Give it a descriptive name you will remember.
-  12. Head back to the main credentials page and copy the credentialsId for the KubeConfig file you just created.
-  13. Find the credentialsId section in the code below and update with the credentialsId you just created.
-    ```
-    stage('Deploy to Kubernetes') {
-        steps {
-            withKubeConfig([credentialsId: 'REPLACE WITH KUBE CREDENTIALS', serverUrl: 'https://kubernetes.docker.internal:6443']) {
-                sh 'kubectl apply -f deployment.yaml -f service.yaml'
+  2. Head over to Jenkins Dashboard, Manage Jenkins, Manage nodes and clouds, Add a new cloud - Kubernetes.
+  3. Name it kubernetes and click Kubernetes Cloud details.
+  4. Set Kubernetes URL to https://kubernetes.docker.internal:6443
+  5. Disable https certficate check.
+  6. Enable WebSocket.
+  7. Set Jenkins URL to http://localhost:8080
+  8. Click Save.
+  9. Now head to Manage Credentials and Add Credentials.
+  10. Select Secret file for the Kind and browse your PC for your .kube folder and upload the config file. Give it a descriptive name you will remember.
+  11. Head back to the main credentials page and copy the credentialsId for the KubeConfig file you just created.
+  12. Find the credentialsId section in the code below and update with the credentialsId you just created.
+  13. Now we are going to update our Jenkinsfile and add the section below. Add a stage after our Build and push stage:
+        ```
+        stage('Deploy to Kubernetes') {
+            steps {
+                withKubeConfig([credentialsId: 'REPLACE WITH KUBE CREDENTIALS', serverUrl: 'https://kubernetes.docker.internal:6443']) {
+                    sh 'kubectl apply -f deployment.yaml -f service.yaml'
+                }
             }
         }
-    }
-    ```
+        ```
    14. Now we need to create deployment.yaml and service.yaml file in our applications root directory.
    15. Create an empty file named deployment.yaml and an empty file named service.yaml
    16. Use the code below to paste into each respective file. Make sure to update to your Docker username under spec/image.
-      ### deployment.yaml
-      ```
+  
+   ### deployment.yaml<br></br>
+      
       apiVersion: apps/v1
       kind: Deployment
       metadata:
@@ -296,9 +297,9 @@ BONUS
               env:
               - name: NODE_ENV
                 value: production
-```
-      ### service.yaml
-      ```
+        
+   ### service.yaml<br></br>
+      
       apiVersion: v1
       kind: Service
       metadata:
@@ -312,7 +313,7 @@ BONUS
           targetPort: 3001
         type: LoadBalancer
 
-```
+       
 # What additonal steps or considerations would be necessary to make this setup production-grade?
   I would start with running Jenkins on a dedicated machine or in the cloud, instead of on a local machine.
   In a production environment, security is important. We could implement securty plugins, such as Jenkins LDAP to prevent unauthorized access to Jenkins.
