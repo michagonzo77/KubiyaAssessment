@@ -10,12 +10,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                bat """set JENKINS_NODE_COOKIE=dontKillMe && start /min npm install """
             }
         }
         stage('Test') {
             steps {
-                sh 'npm test'
+                bat """set JENKINS_NODE_COOKIE=dontKillMe && start /min npm test """
             }
         }
         stage('Build and push Docker image') {
