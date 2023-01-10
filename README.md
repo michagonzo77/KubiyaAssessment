@@ -1,3 +1,5 @@
+
+
 # 1. Install a local Kubernetes cluster on your computer.
 
 To install a local Kubernetes cluster on your local pc, begin with downloading Docker Desktop if you don’t already have it installed. Run the installer and follow the instructions.
@@ -167,26 +169,26 @@ BONUS
 -------
 # 1. Set up a build pipeline using a CI/CD tool (e.g. Jenkins, argo). 
   1. https://www.jenkins.io/download/#downloading-jenkins Download 2.375.1 LTS for Windows
-      Follow the instructions on this page : Instructions
-      Navigate to localhost:8080 or whichever port you selected when you installed and follow the steps to find the initial password and begin installing suggested plugins.
-  2. Now we must configure Jenkins to access our source code repo.
-  3. In step 3, we installed suggested plugins, ensure Git plugin successfully installed.
-  4. Create First Admin User on Jenkins.
-  5. On Jenkins dashboard, click on create new item. 
-  6. Enter a name for the job and select “Pipeline”
-  7. In Pipeline section, change to Pipeline script from SCM.
-  8. Select Git for SCM and enter your repository URL.
-  9. Change branch specifier to \*/main to match our git branch and scroll down and hit save.
-  10. Now inside the root directory of the project create an empty file named Jenkinsfile, this is where our pipeline script will live.
-  11. Head over to Jenkins dashboard, left hand menu - Manage Jenkins - Manage Plugins
-  12. Click on available plugins, and search and install for the following plugins, we are going to need them later: Docker plugin, Docker Pipeline, Git plugin, Git client plugin, GitHub plugin, Kubernetes plugin, Kubernetes CLI, NodeJs
-  13. Setup your docker within Manage Jenkins, Manage Nodes and Clouds, Configure Clouds.
-  14. Add a new cloud - Docker. Name it docker and click Docker Cloud details.
-  15. Set Docker Host URI to tcp://localhost:2375 and select Enabled.
-  16. Now create docker credentials. Within Manage Jenkins, Manage Credentials, Create New Credentials, Select Global Jenkins, enter your username and your password for Docker.
-  17. Give it a description to make it easier to find later.
-  18. Copy the credentialsId from the main Credentials page and paste it into the withDockerRegistry line and the withDockerServer line.
-  19. Edit the Jenkinsfile as followed:
+  2. Follow the instructions on this page : [Instructions](https://www.jenkins.io/doc/book/installing/windows/#:~:text=When%20Installing%20Jenkins%2C%20it%20is,to%20your%20machine%20and%20services.)
+  3. Navigate to localhost:8080 or whichever port you selected when you installed and follow the steps to find the initial password and begin installing suggested plugins.
+  4. Now we must configure Jenkins to access our source code repo.
+  5. In step 3, we installed suggested plugins, ensure Git plugin successfully installed.
+  6. Create First Admin User on Jenkins.
+  7. On Jenkins dashboard, click on create new item. 
+  8. Enter a name for the job and select “Pipeline”
+  9. In Pipeline section, change to Pipeline script from SCM.
+  10. Select Git for SCM and enter your repository URL.
+  11. Change branch specifier to \*/main to match our git branch and scroll down and hit save.
+  12. Now inside the root directory of the project create an empty file named Jenkinsfile, this is where our pipeline script will live.
+  13. Head over to Jenkins dashboard, left hand menu - Manage Jenkins - Manage Plugins
+  14. Click on available plugins, and search and install for the following plugins, we are going to need them later: Docker plugin, Docker Pipeline, Git plugin, Git client plugin, GitHub plugin, Kubernetes plugin, Kubernetes CLI, NodeJs
+  15. Setup your docker within Manage Jenkins, Manage Nodes and Clouds, Configure Clouds.
+  16. Add a new cloud - Docker. Name it docker and click Docker Cloud details.
+  17. Set Docker Host URI to tcp://localhost:2375 and select Enabled.
+  18. Now create docker credentials. Within Manage Jenkins, Manage Credentials, Create New Credentials, Select Global Jenkins, enter your username and your password for Docker.
+  18. Give it a description to make it easier to find later.
+  19. Copy the credentialsId from the main Credentials page and paste it into the withDockerRegistry line and the withDockerServer line.
+  20. Edit the Jenkinsfile as followed:
 
     pipeline {
         agent any
