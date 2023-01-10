@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build and push Docker image') {
             steps {
-                withDockerRegistry([credentialsId: '164b0615-8c61-4199-9880-8160d59aed0d', url: 'tcp://localhost:2375']) {
+                withDockerRegistry([credentialsId: '164b0615-8c61-4199-9880-8160d59aed0d', url: 'https://index.docker.io/v1/']) {
                     withDockerServer([credentialsId: '164b0615-8c61-4199-9880-8160d59aed0d', uri: 'tcp://localhost:2375']) {
                         sh 'docker build -t michagonzo77/kubiya-assessment:latest .'
                         sh 'docker push michagonzo77/kubiya-assessment:latest'
